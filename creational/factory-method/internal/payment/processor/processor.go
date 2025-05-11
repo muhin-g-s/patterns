@@ -2,6 +2,7 @@ package processor
 
 import (
 	"context"
+	"factory-method/internal/payment/factory"
 	"factory-method/internal/payment/gateway"
 	"fmt"
 )
@@ -10,9 +11,9 @@ type Processor struct {
 	gateway gateway.PaymentGateway
 }
 
-func NewProcessor(gateway gateway.PaymentGateway) *Processor {
+func NewProcessor(factory factory.PaymentGatewayFactory) *Processor {
 	return &Processor{
-		gateway: gateway,
+		gateway: factory.GetPaymentGateway(),
 	}
 }
 
