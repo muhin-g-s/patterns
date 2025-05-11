@@ -5,7 +5,13 @@ import (
 	"factory-method/internal/payment/gateway/stripe"
 )
 
-func GetPaymentGateway() gateway.PaymentGateway {
+type StripeGatewayFactory struct{}
+
+func NewStripeGatewayFactory() *StripeGatewayFactory {
+	return &StripeGatewayFactory{}
+}
+
+func (*StripeGatewayFactory) GetPaymentGateway() gateway.PaymentGateway {
 	validator := stripe.NewDefaultValidator()
 	authenticator := stripe.NewSimpleCardAuthenticator()
 	store := stripe.NewTransactionStore()
